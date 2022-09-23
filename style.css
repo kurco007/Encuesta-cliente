@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600;700;800;900&display=swap');
+
+.cuerpo {
+    background-color: #f2f9f2;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding-top: 30px;
+}
+
+/* opcion multiple*/
+.conte {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 10px;
+}
+
+/*
+.conte input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+ /*   height: 0;
+    width: 0; 
+}  
+.sp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.conte:hover input~.sp {
+    background-color: #ccc;
+}
+.conte input:checked~.sp {
+    background-color: #2196F3;
+}*/
+.conte input:checked~.sp:after {
+    display: block;
+}
+
+/*
+.conte .sp:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}  */
+.sps:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/*Parte de las cararas*/
+
+
+.separador {
+    background-color: white;
+    border-radius: 5px;
+    font-size: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+    min-width: none;
+}
+
+.contenedor-img {
+    display: flex;
+    margin: 20px 0;
+}
+
+.separador {
+    flex: 1;
+    cursor: pointer;
+    padding: 20;
+    margin: 10px 5px;
+}
+
+.separador img {
+    height: 100px;
+    width: 100px;
+}
+
+/*
+.separador input {
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}  */
+.separador:hover,
+.separador.active {
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
+
+.separador small {
+    color: #555;
+    display: inline-block;
+    align-items: center;
+
+}
+
+/*
+.separador input:checked~.sps {
+    background-color: #2196F3;
+}
+*/
+.separador input:checked~.sps:after {
+    display: block;
+}
+
+/*
+.sps {
+    top: 0;
+    margin-bottom: 10px;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}  */
+/*el resto de parametros*/
+.contenedor {
+    flex: 1;
+    cursor: pointer;
+    padding: 20;
+    margin: 10px 5px;
+    display: flex;
+    margin: 20px 0;
+}
+
+.formulario {
+    border: #f2f9f2 solid 1px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(105, 105, 105);
+    height: auto;
+    padding: 10px 30px;
+}
+
+.campo-form {
+    border: #f2f9f2 solid .5px;
+    width: 75%;
+    height: 1.5rem;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgb(172, 172, 172);
+    margin-top: 6px;
+    float: right;
+}
+
+.campo-text {
+    border: #f2f9f2 solid .5px;
+    width: 100%;
+    height: 3rem;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgb(172, 172, 172);
+    margin-top: 6px;
+    height: 200px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+}
+
+.btn .boton {
+    font-size: 1rem;
+    height: 4rem 5rem;
+}
+
+.calificacion .satis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.titulo {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+input[type=submit] {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+/* Responsive */
+@media screen and (max-width: 700px) {
+
+    .campo-form,
+    .titulo,
+    .campo-text,
+    .formulario,
+    .boton input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .separador img {
+        height: 60px;
+        width: 60px;
+    }
+
+    .separador small {
+        font-size: small;
+
+    }
+
+    .separador {
+        background-color: white;
+        border-radius: 5px;
+        font-size: 70%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+        min-width: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .conte,
+    span {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .separador {
+        background-color: white;
+        border-radius: 5px;
+        font-size: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+        min-width: none;
+    }
+
+    .separador img {
+        height: 40px;
+        width: 40px;
+    }
+
+    .formulario {
+        border: #f2f9f2 solid 1px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgb(105, 105, 105);
+        height: auto;
+
+        padding: 20px 30px;
+    }
+}
+
+
+
+p.exito {
+    font-size: 1.5em;
+    padding: 1em;
+    border: 2px solid green;
+    background: lightgreen;
+}
+
+p.error {
+    font-size: 1.5em;
+    padding: 1em;
+    border: 2px solid red;
+    background: #ff8787;
+}
