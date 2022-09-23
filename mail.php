@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Plugin Name: Encuesta para clientes
+ * Plugin Name: Mail
  * Description:  Formulario para clientes. Utiliza el shortcode [etiqueta_mail] para que el formulario aparezca en la página o el post que desees.
- * Version:      1.0.0.0
+ * Version:      0.1.1
  * Author:       Kurt Cruz Garcia
  * Author URI:   https:// kurtcruzgarcia.coms
  * PHP Version:
  *
  * @category Form
- * @package  KFP
+ * @package  KCG
  * @author   Kurt Cruz Garcia
  * @license  GPLv2 http://www.gnu.org/licenses/gpl-2.0.txt
  * @link     https://kurtcruzgarcia.com/
@@ -33,13 +33,13 @@ function encuesta_cliente_init()
     $charset_collate = $wpdb->get_charset_collate();
     //querydd
     $query = "CREATE TABLE IF NOT EXISTS $tabla(
-        id mediumint(7) NOT NULL AUTO_INCREMENT,
-        nombre varchar(40) NOT NULL,
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        nombre varchar(40)NOT NULL,
         telefono varchar (15) NOT NULL,
-        correo varchar(100) NOT NULL,
-        lugar smallint(4) NOT NULL,
-        primer_compra smallint(4) NOT NULL,
-        publicidad smallint(4) NOT NULL,
+        correo varchar(100)NOT NULL,
+        lugar smallint(3) NOT NULL,
+        primer_compra smallint(2) NOT NULL,
+        publicidad smallint(2) NOT NULL,
         ratio smallint(4) NOT NULL,
         comentarios text,
         ip varchar(300),
@@ -52,11 +52,7 @@ function encuesta_cliente_init()
 }
 
 add_shortcode('etiqueta_mail', 'Etiqueta_mail');
-/**
- * Crea y procesa el formulario que rellenan los aspirantes
- *
- * @return string
- */
+
 function Etiqueta_mail()
 {
     global $wpdb;
@@ -76,7 +72,7 @@ function Etiqueta_mail()
         $nombre = sanitize_text_field($_POST['nombre']);
         $telefono = sanitize_text_field($_POST['telefono']);
         $correo = $_POST['correo'];
-        $lugar = (int) $_POST['lugar'];
+        $lugar = $_POST['lugar'];
         $Primercompra = (int) $_POST['primer_compra'];
         $publicidad = (int) $_POST['publicidad'];
         $satisfaccionCliente = (int) $_POST['ratio'];
@@ -88,8 +84,8 @@ function Etiqueta_mail()
             $tabla,
             array(
                 'nombre' => $nombre,
-                'telefono' => $telefono,
                 'correo' => $correo,
+                'telefono' => $telefono,
                 'lugar' => $lugar,
                 'primer_compra' => $Primercompra,
                 'publicidad' => $publicidad,
@@ -125,84 +121,83 @@ function Etiqueta_mail()
                 <input type="email" name="correo" id="correo" class="campo-form" autocomplete="off">
             </div>
             <div class="divicion">
-                <span class="titulo">¿Desde que lugar fue su compra?</span>
-                <br>
+                <span class="titulo">¿Desde donde estas comprando?</span> <br>
                 <div class="contenedor ">
-                    <label class="conte">Reyes(matriz)
-                        <input class="op" type="radio" name="lugar" value="1" required><span class="sp">
-                        </span></label>
-                    <label class="conte">Morelos
-                        <input class="op" type="radio" name="lugar" value="2" required><span class="sp"> </span>
-                        <br>
+                    <label for="lugar" class="conte">Reyes(Matriz)
+                        <input class="op" type="radio" name="lugar" value="1"><span class="sp"> </span>
                     </label>
-                    <label class="conte">Tienda en linea
-                        <input class="op" type="radio" name="lugar" value="3" required><span class="sp"> </span>
-                        <br>
+                    <label for="lugar" class="conte">
+                        Morelos
+                        <input class="op" type="radio" name="lugar" value="2"><span class="sp"> </span> <br>
                     </label>
-                </div>
-            </div>
-            <div class="divicion">
-                <span class="titulo">¿Es su primera vez comprando con nosotros?</span> <br>
-                <div class="contenedor ">
-                    <label class="conte">Si
-                        <input class="op" type="radio" name="primer_compra" value="1" required><span class="sp"> </span>
-                    </label>
-                    <label class="conte">No
-                        <input class="op" type="radio" name="primer_compra" value="2" required><span class="sp"> </span>
-                        <br>
+                    <label for="lugar" class="conte">
+                        Tienda en linea
+                        <input class="op" type="radio" name="lugar" value="3"><span class="sp"> </span> <br>
                     </label>
                 </div>
                 <div class="divicion">
-                    <span class="titulo">¿Te gustaria recibir descuentos y promociones exclusivos en tu correo?</span>
-                    <br>
+                    <span class="titulo">¿Es su primera vez comprando con nosotros?</span> <br>
                     <div class="contenedor ">
-                        <label class="conte">Si
-                            <input class="op" type="radio" name="publicidad" value="1" required><span class="sp">
-                            </span></label>
-                        <label class="conte">No
-                            <input class="op" type="radio" name="publicidad" value="2" required><span class="sp">
-                            </span>
-                            <br>
+                        <label for="primer_compra" class="conte">Si
+                            <input class="op" type="radio" name="primer_compra" value="1"><span class="sp"> </span>
+                        </label>
+                        <label for="primer_compra" class="conte">
+                            No
+                            <input class="op" type="radio" name="primer_compra" value="2"><span class="sp"> </span> <br>
                         </label>
                     </div>
-                </div>
-                <div class="divicion">
-                    <span class="satis">¿Que tan satisfactoria fue su compra?</span> <br>
-                    <!----parte de las imgs-->
-                    <div id="panel" class="contenedor-img">
-                        <label class="separador">
-                            <img src="https://sonoraboutique.com.mx/wp-content/uploads/2022/09/smiling.png" alt=""><br>
-                            <input class="op" type="radio" name="ratio" value="1"><span class="sps" required></span>
-                            <br>
-                            <small>Muy
-                                bueno</small></label>
-                        <label class="separador">
-                            <img src="https://sonoraboutique.com.mx/wp-content/uploads/2022/09/smile.png" alt=""><br>
-                            <input class="op" type="radio" name="ratio" value="2"><span class="sps" required></span>
-                            <br>
-                            <small>Bueno</small>
-                        </label>
-                        <label class="separador">
-                            <img src="https://sonoraboutique.com.mx/wp-content/uploads/2022/09/neutral.png" alt=""> <br>
-                            <input class="" type="radio" name="ratio" value="3"><span class="sps" required></span> <br>
-                            <small>Regular</small> </label>
-                        <label class="separador">
-                            <img src="https://sonoraboutique.com.mx/wp-content/uploads/2022/09/sad.png" alt=""> <br>
-                            <input class="" type="radio" name="ratio" value="4"><span class="sps" required></span> <br>
-                            <small>Malo</small>
-                        </label>
+                    <div class="divicion">
+                        <span class="titulo">¿Te gustaria recibir descuentos y promociones exclusivos en tu
+                            correo?</span>
+                        <br>
+                        <div class="contenedor ">
+                            <label for="publicidad" class="conte">Si
+                                <input class="op" type="radio" name="publicidad" value="1"><span class="sp">
+                                </span></label>
+                            <label for="publicidad" class="conte">No
+                                <input class="op" type="radio" name="publicidad" value="2"><span class="sp"> </span>
+                                <br>
+                            </label>
+                        </div>
                     </div>
-                    <!---fin de imgs-->
-                </div>
-                <div class="divicion">
-                    <span class="conent titulo">Deja tu comentario:</span> <br>
-                    <textarea class="campo-text" name="comentarios" id="" autocomplete="off"></textarea>
-                </div>
-                <div class="divicion btn">
-                    <input type="submit" value="enviar" id="enviar" class="boton">
-                </div>
+                    <div class="divicion">
+                        <span class="satis">¿Que tan satisfactoria fue su compra?</span> <br>
+                        <!----parte de las imgs-->
+                        <div id="panel" class="contenedor-img">
+                            <label for="ratio" class="separador">
+                                <img src="https://sonoraboutique.com.mx/wp-content/uploads/2022/09/smiling.png"
+                                    alt=""><br>
+                                <input class="op" type="radio" name="ratio" value="1"><span class="sps"></span> <br>
+                                <small>Muy
+                                    bueno</small></label>
+                            <label for="ratio" class="separador">
+                                <img src="https://sonoraboutique.com.mx/wp-content/uploads/2022/09/smile.png"
+                                    alt=""><br>
+                                <input class="op" type="radio" name="ratio" value="2"><span class="sps"></span> <br>
+                                <small>Bueno</small>
+                            </label>
+                            <label for="ratio" class="separador">
+                                <img src="https://sonoraboutique.com.mx/wp-content/uploads/2022/09/neutral.png" alt="">
+                                <br>
+                                <input class="" type="radio" name="ratio" value="3"><span class="sps"></span> <br>
+                                <small>Regular</small> </label>
+                            <label for="ratio" class="separador">
+                                <img src="https://sonoraboutique.com.mx/wp-content/uploads/2022/09/sad.png" alt=""> <br>
+                                <input class="" type="radio" name="ratio" id="4"><span class="sps"></span> <br>
+                                <small>Malo</small>
+                            </label>
+                        </div>
+                        <!---fin de imgs-->
+                    </div>
+                    <div class="divicion">
+                        <span class="conent titulo">Deja tu comentario:</span> <br>
+                        <textarea class="campo-text" name="comentarios" id="" autocomplete="off"></textarea>
+                    </div>
+                    <div class="divicion btn">
+                        <input type="submit" value="enviar" id="enviar" class="boton">
+                    </div>
 
-            </div>
+                </div>
     </form>
 </body>
 <?php
@@ -219,7 +214,7 @@ add_action("admin_menu", "Admin_encuesta");
 
 function Admin_encuesta()
 {
-    add_menu_page("Encuesta a clientes", "EC", "manage_options", "encuestas_clientes", "encuestas_cliente_admin", "dashicons-feedback", 75);
+    add_menu_page("Encuesta a clienres", "EC", "manage_options", "encuestas_clientes", "encuestas_cliente_admin", "dashicons-feedback", 75);
 }
 
 function encuestas_cliente_admin()
@@ -230,8 +225,8 @@ function encuestas_cliente_admin()
     $encuestas = $wpdb->get_results("SELECT * FROM $tabla");
     echo '<div class="wrap"><h1>Lista de clientes encuestados</h1>';
     echo '<table class="wp-list-table widefat fixed striped">';
-    echo '<thead><tr><th width="30%">Nombre</th><th width="10%">Telefono</th><th width="20%">Correo</th>';
-    echo '<th>Lugar</th><th>Primera vez comprando</th><th>Publicidad</th><th>Satisfaccion cliente</th> <th>Comentarios</th>';
+    echo '<thead><tr><th width="10%">Nombre</th><th width="10%">Telefono</th><th>Correo</th>';
+    echo '<th>Lugar</th><th>Primera vez comprando</th><th>Publicidad</th><th>Satisfaccion del cliente</th> <th>Comentario</th>';
     echo '</tr></thead>';
     echo '<tbody id="the-list">';
     foreach ($encuestas as $encuesta) {
@@ -239,13 +234,12 @@ function encuestas_cliente_admin()
         $telefono = esc_textarea($encuesta->telefono);
         $correo = esc_textarea($encuesta->correo);
         $lugar = (int) $encuesta->lugar;
-        $comentario = esc_textarea($encuesta->comentarios);
         $Primercompra = (int) $encuesta->primer_compra;
         $publicidad = (int) $encuesta->publicidad;
         $satisfaccionCliente = (int) $encuesta->ratio;
-        $total = $Primercompra + $publicidad + $satisfaccionCliente;
+        $comentario = esc_textarea($encuesta->comentarios);
         echo "<tr><td><a href='#' title='$comentario'>$nombre</a></td>";
-        echo "<td>$telefono</td><td>$correo</td><td>$Primercompra</td>";
+        echo "<td>$telefono</td><td>$correo</td><td>$lugar</td><td>$Primercompra</td>";
         echo "<td>$publicidad</td><td>$satisfaccionCliente</td>";
         echo "<td>$comentario</td></tr>";
     }
