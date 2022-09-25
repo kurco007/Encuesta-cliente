@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: Mail
+ * Plugin Name: ENCUESTA CLIENTES
  * Description:  Formulario para clientes. Utiliza el shortcode [etiqueta_mail] para que el formulario aparezca en la página o el post que desees.
- * Version:      0.1.1
+ * Version:      1.2.3
  * Author:       Kurt Cruz Garcia
  * Author URI:   https:// kurtcruzgarcia.coms
  * PHP Version:
@@ -37,7 +37,7 @@ function encuesta_cliente_init()
         nombre varchar(40)NOT NULL,
         telefono varchar (15) NOT NULL,
         correo varchar(100)NOT NULL,
-        lugar smallint(3) NOT NULL,
+		lugar smallint(4) NOT NULL,
         primer_compra smallint(2) NOT NULL,
         publicidad smallint(2) NOT NULL,
         ratio smallint(4) NOT NULL,
@@ -61,7 +61,7 @@ function Etiqueta_mail()
         && $_POST['nombre'] != ''
         && $_POST['telefono'] != ''
         && is_email($_POST['correo'])
-        && $_POST['lugar'] != ''
+		&& $_POST['lugar'] !=''
         && $_POST['primer_compra'] != ''
         && $_POST['publicidad'] != ''
         && $_POST['ratio'] != ''
@@ -72,7 +72,7 @@ function Etiqueta_mail()
         $nombre = sanitize_text_field($_POST['nombre']);
         $telefono = sanitize_text_field($_POST['telefono']);
         $correo = $_POST['correo'];
-        $lugar = $_POST['lugar'];
+		$lugar = $_POST['lugar'];
         $Primercompra = (int) $_POST['primer_compra'];
         $publicidad = (int) $_POST['publicidad'];
         $satisfaccionCliente = (int) $_POST['ratio'];
@@ -86,7 +86,6 @@ function Etiqueta_mail()
                 'nombre' => $nombre,
                 'correo' => $correo,
                 'telefono' => $telefono,
-                'lugar' => $lugar,
                 'primer_compra' => $Primercompra,
                 'publicidad' => $publicidad,
                 'ratio' => $satisfaccionCliente,
@@ -121,19 +120,30 @@ function Etiqueta_mail()
                 <input type="email" name="correo" id="correo" class="campo-form" autocomplete="off">
             </div>
             <div class="divicion">
-                <span class="titulo">¿Desde donde estas comprando?</span> <br>
-                <div class="contenedor ">
-                    <label for="lugar" class="conte">Reyes(Matriz)
-                        <input class="op" type="radio" name="lugar" value="1"><span class="sp"> </span>
-                    </label>
-                    <label for="lugar" class="conte">
-                        Morelos
-                        <input class="op" type="radio" name="lugar" value="2"><span class="sp"> </span> <br>
-                    </label>
-                    <label for="lugar" class="conte">
-                        Tienda en linea
-                        <input class="op" type="radio" name="lugar" value="3"><span class="sp"> </span> <br>
-                    </label>
+                <span class="satis">¿Que tan satisfactoria fue su compra?</span> <br>
+                <!----parte de las imgs-->
+                <div id="panel" class="contenedor">
+                    <div>
+                        <label for="lugar" class="conte">
+                            Reyes(Matriz)
+                            <input class="op" type="radio" name="lugar" value="1"><span class="sp"></span> </label>
+                        <label for="lugar" class="conte">
+                            Morelos
+                            <input class="op" type="radio" name="lugar" value="2"><span class="sp"></span>
+
+                        </label> <br>
+                    </div>
+                    <div>
+                        <label for="lugar" class="conte">
+                            Tienda en linea
+                            <input class="" type="radio" name="lugar" value="3"><span class="sp"></span>
+                        </label>
+                        <label for="lugar" class="conte">
+                            Faceboock/Instagram/Whatsapp
+                            <input class="" type="radio" name="lugar" id="4"><span class="sp"></span>
+
+                        </label>
+                    </div>
                 </div>
                 <div class="divicion">
                     <span class="titulo">¿Es su primera vez comprando con nosotros?</span> <br>
@@ -225,21 +235,21 @@ function encuestas_cliente_admin()
     $encuestas = $wpdb->get_results("SELECT * FROM $tabla");
     echo '<div class="wrap"><h1>Lista de clientes encuestados</h1>';
     echo '<table class="wp-list-table widefat fixed striped">';
-    echo '<thead><tr><th width="10%">Nombre</th><th width="10%">Telefono</th><th>Correo</th>';
-    echo '<th>Lugar</th><th>Primera vez comprando</th><th>Publicidad</th><th>Satisfaccion del cliente</th> <th>Comentario</th>';
+    echo '<thead><tr><th width="10%">Nombre</th><th width="10%">Telefono</th><th>Correo</th><th>Lugar</th>';
+    echo '<th>Primera vez comprando</th><th>Publicidad</th><th>Satisfaccion del cliente</th> <th>Comentario</th>';
     echo '</tr></thead>';
     echo '<tbody id="the-list">';
     foreach ($encuestas as $encuesta) {
         $nombre = esc_textarea($encuesta->nombre);
         $telefono = esc_textarea($encuesta->telefono);
-        $correo = esc_textarea($encuesta->correo);
-        $lugar = (int) $encuesta->lugar;
+		  $correo = esc_textarea($encuesta->correo);
+		$lugar = (int) $encuesta->lugar;
         $Primercompra = (int) $encuesta->primer_compra;
         $publicidad = (int) $encuesta->publicidad;
         $satisfaccionCliente = (int) $encuesta->ratio;
-        $comentario = esc_textarea($encuesta->comentarios);
+		$comentario = esc_textarea($encuesta->comentarios);
         echo "<tr><td><a href='#' title='$comentario'>$nombre</a></td>";
-        echo "<td>$telefono</td><td>$correo</td><td>$lugar</td><td>$Primercompra</td>";
+        echo "<td>$correo</td><td>$lugar</td><td>$telefono</td><td>$Primercompra</td>";
         echo "<td>$publicidad</td><td>$satisfaccionCliente</td>";
         echo "<td>$comentario</td></tr>";
     }
