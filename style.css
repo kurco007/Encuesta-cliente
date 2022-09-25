@@ -15,7 +15,7 @@ body {
 
 /* opcion multiple*/
 .conte {
-    background-color: red;
+
     display: block;
     position: relative;
     padding-left: 40px;
@@ -76,7 +76,7 @@ body {
 
 
 .separador {
-    background-color: white;
+    background-color: red;
     border-radius: 5px;
     font-size: 90%;
     display: flex;
